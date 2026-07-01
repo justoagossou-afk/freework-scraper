@@ -7,11 +7,11 @@ from dataclasses import asdict
 load_dotenv()
 
 # ── Connexion ──────────────────────────────────────────
-DB_USER     = os.getenv("POSTGRES_USER")
-DB_PASSWORD = os.getenv("POSTGRES_PASSWORD")
-DB_NAME     = os.getenv("POSTGRES_DB")
-DB_HOST     = os.getenv("POSTGRES_HOST", "postgres")
-DB_PORT     = os.getenv("POSTGRES_PORT", "5432")
+DB_USER     = os.getenv("SCRAPER_DB_USER")
+DB_PASSWORD = os.getenv("SCRAPER_DB_PASSWORD")
+DB_NAME     = os.getenv("SCRAPER_DB_NAME")
+DB_HOST     = os.getenv("SCRAPER_DB_HOST", "postgres")
+DB_PORT     = os.getenv("SCRAPER_DB_PORT", "5432")
 
 DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 

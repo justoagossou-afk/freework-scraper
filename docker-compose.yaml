@@ -1,0 +1,39 @@
+services:
+  scraper:
+    build: .
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - shared_network
+
+  postgres:
+    image: postgres:15
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${SCRAPER_DB_USER}
+      - POSTGRES_PASSWORD=${SCRAPER_DB_PASSWORD}
+      - POSTGRES_DB=${SCRAPER_DB_NAME}
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${SCRAPER_DB_USER}"]
+      interval: 5s
+      retries: 5
+    networks:
+      shared_network:
+        aliases:
+          - postgres-scraper
+
+
+volumes:
+  pg_data:
+
+networks:
+  shared_network:
+    external: true
